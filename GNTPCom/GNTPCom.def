@@ -1,0 +1,10 @@
+; GNTPCom.def : モジュール パラメータを宣言します。
+
+LIBRARY      "GNTPCom.DLL"
+
+EXPORTS
+	DllCanUnloadNow		PRIVATE
+	DllGetClassObject	PRIVATE
+	DllRegisterServer	PRIVATE
+	DllUnregisterServer	PRIVATE
+	DllInstall		PRIVATE

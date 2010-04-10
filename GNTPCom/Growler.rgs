@@ -1,0 +1,26 @@
+HKCR
+{
+	GNTPCom.Growler.1 = s 'Growler Class'
+	{
+		CLSID = s '{D83537A7-2B26-44C6-A798-AD623189EC46}'
+	}
+	GNTPCom.Growler = s 'Growler Class'
+	{
+		CLSID = s '{D83537A7-2B26-44C6-A798-AD623189EC46}'
+		CurVer = s 'GNTPCom.Growler.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {D83537A7-2B26-44C6-A798-AD623189EC46} = s 'Growler Class'
+		{
+			ProgID = s 'GNTPCom.Growler.1'
+			VersionIndependentProgID = s 'GNTPCom.Growler'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{4C61D35A-81FC-4197-A575-BB2BAE8F7532}'
+		}
+	}
+}

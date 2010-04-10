@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'GNTPCom'
+		'GNTPCom.DLL'
+		{
+			val AppID = s '%APPID%'
+		}
+	}
+}

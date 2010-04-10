@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GNTPCom", "GNTPCom\GNTPCom.vcproj", "{8EE8E5EB-9DD3-48B5-A380-B746AC524F05}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GNTPComPS", "GNTPCom\GNTPComPS.vcproj", "{CB6705B1-7098-4EC9-9CE7-FDAE2BBD00CD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8EE8E5EB-9DD3-48B5-A380-B746AC524F05} = {8EE8E5EB-9DD3-48B5-A380-B746AC524F05}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8EE8E5EB-9DD3-48B5-A380-B746AC524F05}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8EE8E5EB-9DD3-48B5-A380-B746AC524F05}.Debug|Win32.Build.0 = Debug|Win32
+		{8EE8E5EB-9DD3-48B5-A380-B746AC524F05}.Release|Win32.ActiveCfg = Release|Win32
+		{8EE8E5EB-9DD3-48B5-A380-B746AC524F05}.Release|Win32.Build.0 = Release|Win32
+		{CB6705B1-7098-4EC9-9CE7-FDAE2BBD00CD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CB6705B1-7098-4EC9-9CE7-FDAE2BBD00CD}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

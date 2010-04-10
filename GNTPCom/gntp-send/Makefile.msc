@@ -1,0 +1,34 @@
+all: dirs bin/gntp-send.exe
+
+bin/gntp-send.exe : objs/gntp-send.obj lib/growl.lib
+	link $** /out:$@ ws2_32.lib
+
+lib/growl.lib  : objs/growl.obj objs/tcp.obj  objs/md5.obj
+	lib /out:$@ $**
+
+objs/growl.obj : source/growl.c
+	cl -I headers -w -c $** -Fo$@
+
+objs/tcp.obj : source/tcp.c
+	cl -I headers -w -c $** -Fo$@
+
+objs/md5.obj : source/md5.c
+	cl -I headers -w -c $** -Fo$@
+
+objs/gntp-send.obj : source/gntp-send.c
+	cl -I headers -w -c $** -Fo$@
+
+shared : dirs lib/growl.dll
+lib/growl.dll : objs/growl.obj objs/tcp.obj  objs/md5.obj
+	link -dll /out:$@ /def:source/growl.def $** ws2_32.lib
+
+clean : 
+	del /Q bin objs lib
+
+dirs : bin objs lib
+bin :
+	mkdir $@
+objs :
+	mkdir $@
+lib :
+	mkdir $@

@@ -1,0 +1,66 @@
+// GNTPCom.idl : GNTPCom の IDL ソース
+//
+
+// このファイルは、タイプ ライブラリ (GNTPCom.tlb) およびマーシャリング コードを
+// 作成するために MIDL ツールによって処理されます。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(3241832B-2158-459A-9E6B-4692587066F5),
+	dual,
+	nonextensible,
+	helpstring("IGrowler Interface"),
+	pointer_default(unique)
+]
+interface IGrowler : IDispatch{
+
+	[id(1), helpstring("Method Init")]
+	HRESULT Init(
+		[in] BSTR ApplicationName, 
+		[in] VARIANT Notifications,
+		[in, optional] VARIANT Password
+	);
+
+	[id(2), helpstring("Method Notify")]
+	HRESULT Notify(
+		[in] BSTR NotificationType,
+		[in] BSTR Title, 
+		[in] BSTR MessageText,
+		[in, optional] VARIANT Icon,
+		[in, optional] VARIANT Url
+	);
+
+	[propget, id(3), helpstring("Property ApplicationName")]
+	HRESULT ApplicationName([out, retval] BSTR* pVal);
+
+	[propget, id(4), helpstring("Propety Notifications")]
+	HRESULT Notifications([out, retval] VARIANT* pVal);
+
+	[id(5), helpstring("Method InitWithAddress")]
+	HRESULT InitWithAddress(
+		[in] BSTR ServerAddress, 
+		[in] BSTR Password, 
+		[in] BSTR ApplicationName, 
+		[in] VARIANT Notifications
+	);
+};
+[
+	uuid(4C61D35A-81FC-4197-A575-BB2BAE8F7532),
+	version(1.0),
+	helpstring("GNTPCom 1.0 Type library")
+]
+library GNTPComLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(D83537A7-2B26-44C6-A798-AD623189EC46),
+		helpstring("Growler Class")
+	]
+	coclass Growler
+	{
+		[default] interface IGrowler;
+	};
+};
