@@ -4,6 +4,12 @@ COM component for GNTP
 ## What's this ##
 This is COM componet for GNTP send.
 
+## Install ##
+
+1. Download zip file [here](http://github.com/snaka/GNTPCom/downloads)
+2. Unzip file
+3. Run install.bat
+
 ## Usage ##
 
 ### With VBScript ###
