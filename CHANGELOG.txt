@@ -1,0 +1,9 @@
+2010-04-19  snaka <snaka.gml@gmail.com>
+
+  * FIX : Replaced original md5.c to "RFC1321-based (RSA-free) MD5 library" for license isssue.
+  * FIX : Lost gntp-send's LICENSE text file was recovered.
+
+2010-04-11  snaka <snaka.gml@gmail.com>
+
+  * Initial commit.
+

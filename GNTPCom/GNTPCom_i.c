@@ -6,7 +6,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0500 */
-/* at Sun Apr 11 04:27:36 2010
+/* at Mon Apr 19 19:27:28 2010
  */
 /* Compiler settings for .\GNTPCom.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)

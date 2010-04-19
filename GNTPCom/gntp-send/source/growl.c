@@ -1,8 +1,16 @@
+/*
+    growl.c
+
+    This code has been modified from original code:
+
+    2010-04-18 snaka <snaka.gml@gmail.com> 
+    - Replaced original md5.c to "RFC1321-based (RSA-free) MD5 library" for license isssue.
+     
+ */
 #ifdef _WIN32
 #include <windows.h>
-#define EXPORT __declspec(dllexport)
+#include "msinttypes/stdint.h"
 #else
-#define EXPORT
 #include <arpa/inet.h>
 #include <stdint.h>
 #endif
@@ -13,6 +21,7 @@
 
 #include "md5.h"
 #include "tcp.h"
+#include "growl.h"
 
 static const char hex_table[] = "0123456789ABCDEF";
 static char* string_to_hex_alloc(const char* str, int len) {
@@ -67,21 +76,22 @@ char* gen_salt_alloc(int count) {
 }
 
 char* gen_password_hash_alloc(const char* password, const char* salt) {
-	md5_context md5ctx;
-	char md5tmp[20];
+    md5_state_t state;
+    md5_byte_t md5tmp[20];
 	char* md5digest;
 
 	memset(md5tmp, 0, sizeof(md5tmp));
-	md5_starts(&md5ctx);
-	md5_update(&md5ctx, (uint8_t*)password, strlen(password));
-	md5_update(&md5ctx, (uint8_t*)salt, strlen(salt));
-	md5_finish(&md5ctx, (uint8_t*)md5tmp);
+    md5_init(&state);
+    md5_append(&state, (const md5_byte_t *)password, strlen(password));
+    md5_append(&state, (const md5_byte_t *)salt, strlen(salt));
+    md5_finish(&state, md5tmp);
 
-	md5_starts(&md5ctx);
-	md5_update(&md5ctx, (uint8_t*)md5tmp, 16);
-	md5_finish(&md5ctx, (uint8_t*)md5tmp);
+    md5_init(&state);
+    md5_append(&state, (const md5_byte_t *)md5tmp, 16);
+    md5_finish(&state, md5tmp);
 	md5digest = string_to_hex_alloc(md5tmp, 16);
 
+    //fprintf(stderr, "digest: %s\n", md5digest);
 	return md5digest;
 }
 
@@ -106,8 +116,13 @@ char *growl_generate_authheader_alloc(const char*const password)
 	return authheader;
 }
 
-EXPORT
-int growl_tcp_register( const char *const server , const char *const appname , const char **const notifications , const int notifications_count , const char *const password  )
+
+int growl_tcp_register( const char *const server ,
+                        const char *const appname ,
+                        const char **const notifications ,
+                        const int notifications_count ,
+		                const char *const password,
+                        const char *const icon  )
 {
 	int sock = -1;
 	int i=0;
@@ -120,6 +135,7 @@ int growl_tcp_register( const char *const server , const char *const appname , c
     
 	growl_tcp_write(sock, "GNTP/1.0 REGISTER NONE %s", authheader ? authheader : "");
 	growl_tcp_write(sock, "Application-Name: %s ", appname);
+	if(icon) growl_tcp_write(sock, "Application-Icon: %s ", icon);	
 	growl_tcp_write(sock, "Notifications-Count: %d", notifications_count);
 	growl_tcp_write(sock, "" );
 
@@ -128,6 +144,7 @@ int growl_tcp_register( const char *const server , const char *const appname , c
 		growl_tcp_write(sock, "Notification-Name: %s", notifications[i]);
 		growl_tcp_write(sock, "Notification-Display-Name: %s", notifications[i]);
 		growl_tcp_write(sock, "Notification-Enabled: True" );
+		if(icon) growl_tcp_write(sock, "Notification-Icon: %s",  icon);
 		growl_tcp_write(sock, "" );
 	}
 	while (1) {
@@ -151,9 +168,15 @@ int growl_tcp_register( const char *const server , const char *const appname , c
 	return (sock == 0) ? 0 : -1;
 }
 
-EXPORT
-int growl_tcp_notify( const char *const server,const char *const appname,const char *const notify,const char *const title, const char *const message ,
-                                const char *const password, const char* const url, const char* const icon)
+
+int growl_tcp_notify( const char *const server,
+                      const char *const appname,
+                      const char *const notify,
+                      const char *const title,
+                      const char *const message ,
+                      const char *const password,
+                      const char *const url,
+                      const char *const icon)
 {
 	int sock = -1;
 
@@ -195,11 +218,17 @@ leave:
 }
 
 
-EXPORT
-int growl( const char *const server,const char *const appname,const char *const notify,const char *const title, const char *const message ,
-                                const char *const icon , const char *const password , const char *url )
+
+int growl( const char *const server,
+           const char *const appname,
+           const char *const notify,
+           const char *const title,
+           const char *const message,
+           const char *const icon,
+           const char *const password,
+           const char *url            )
 {		
-	int rc = growl_tcp_register(  server ,  appname ,  (const char **const)&notify , 1 , password  );
+	int rc = growl_tcp_register(  server ,  appname ,  (const char **const)&notify , 1 , password, icon  );
 	if( rc == 0 )
 	{
 		rc = growl_tcp_notify( server, appname, notify, title,  message , password, url, icon );
@@ -210,23 +239,27 @@ int growl( const char *const server,const char *const appname,const char *const 
 
 void growl_append_md5( unsigned char *const data , const int data_length , const char *const password )
 {
-	md5_context md5ctx;
-	char md5tmp[20];
+    md5_state_t state;
+    md5_byte_t  md5tmp[20];
 
 	memset(md5tmp, 0, sizeof(md5tmp));
-	md5_starts(&md5ctx);
-	md5_update(&md5ctx, (uint8_t*)data, data_length );
+    md5_init(&state);
+    md5_append(&state, (const md5_byte_t *)data, data_length);
 	if(password != NULL)
 	{
-		md5_update(&md5ctx, (uint8_t*)password, strlen(password));
+        md5_append(&state, (const md5_byte_t *)password, strlen(password));
 	}
-	md5_finish(&md5ctx, (uint8_t*)md5tmp);
+    md5_finish(&state, md5tmp);
 
 	memcpy( data + data_length , md5tmp , 16 );
 }
 
-EXPORT
-int growl_udp_register( const char *const server , const char *const appname , const char **const notifications , const int notifications_count , const char *const password  )
+
+int growl_udp_register( const char *const server,
+                        const char *const appname,
+                        const char **const notifications,
+                        const int notifications_count,
+                        const char *const password  )
 {
 	int register_header_length = 22+strlen(appname);
 	unsigned char *data;
@@ -289,9 +322,13 @@ int growl_udp_register( const char *const server , const char *const appname , c
 	return rc;
 }
 
-EXPORT
-int growl_udp_notify( const char *const server,const char *const appname,const char *const notify,const char *const title, const char *const message ,
-                                const char *const password )
+
+int growl_udp_notify( const char *const server,
+                      const char *const appname,
+                      const char *const notify,
+                      const char *const title,
+                      const char *const message ,
+                      const char *const password )
 {
 	int notify_header_length = 28 + strlen(appname)+strlen(notify)+strlen(message)+strlen(title);
 	unsigned char *data = (unsigned char*)malloc(notify_header_length);
@@ -344,9 +381,15 @@ int growl_udp_notify( const char *const server,const char *const appname,const c
 	return rc;
 }
 
-EXPORT
-int growl_udp( const char *const server,const char *const appname,const char *const notify,const char *const title, const char *const message ,
-                                const char *const icon , const char *const password , const char *url )
+
+int growl_udp( const char *const server,
+               const char *const appname,
+               const char *const notify,
+               const char *const title,
+               const char *const message ,
+               const char *const icon,
+               const char *const password,
+               const char *url )
 {
 	int rc = growl_udp_register(  server ,  appname ,  (const char **const)&notify , 1 , password  );
 	if( rc == 0 )
@@ -358,7 +401,7 @@ int growl_udp( const char *const server,const char *const appname,const char *co
 
 
 #ifdef _WIN32
-EXPORT
+
 void GrowlNotify(HWND hwnd, HINSTANCE hinst, LPSTR lpszCmdLine, int nCmdShow) {
 	char* server = "127.0.0.1:23053";
 	char* password = NULL;
@@ -386,3 +429,4 @@ void GrowlNotify(HWND hwnd, HINSTANCE hinst, LPSTR lpszCmdLine, int nCmdShow) {
 	free(ptr);
 }
 #endif
+// vim: st=4 ts=4 et

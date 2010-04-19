@@ -144,7 +144,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="&quot;C:\cygwin\home\Owner\work\lang\c++\GNTPCom\GNTPCom\gntp-send\headers&quot;"
+				AdditionalIncludeDirectories="&quot;C:\cygwin\home\Owner\work\lang\c++\GNTPCom\GNTPCom\md5lib&quot;;&quot;C:\cygwin\home\Owner\work\lang\c++\GNTPCom\GNTPCom\gntp-send\headers&quot;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -295,16 +295,8 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\gntp-send\source\md5.c"
+				RelativePath=".\md5lib\md5.c"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
@@ -377,7 +369,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\gntp-send\headers\md5.h"
+				RelativePath=".\md5lib\md5.h"
 				>
 			</File>
 			<File
