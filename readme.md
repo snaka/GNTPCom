@@ -51,6 +51,14 @@ function SA() {
   return temp.Items();
 }</pre>
 
+### Use UDP protocol (Mac Growl compatible) ###
+
+<pre>set g = CreateObject("GNTPCom.Growler")
+g.UseUDP = true
+g.InitWithAddress "192.168.0.xxx", "", "Sample", Array("notify", "warn", "error")
+g.Notify "notify", "Greeting", "Hello, from VBScript!"
+set g = Nothing</pre>
+
 ## License ##
 
 The MIT License
