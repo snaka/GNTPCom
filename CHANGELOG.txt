@@ -1,3 +1,7 @@
+2010-04-30  snaka <snaka.gml@gmail.com>
+
+  * ADD : UseUDP property.
+
 2010-04-19  snaka <snaka.gml@gmail.com>
 
   * FIX : Replaced original md5.c to "RFC1321-based (RSA-free) MD5 library" for license isssue.

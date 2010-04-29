@@ -46,6 +46,12 @@ interface IGrowler : IDispatch{
 		[in] BSTR ApplicationName, 
 		[in] VARIANT Notifications
 	);
+
+	[propget, id(6), helpstring("Propety UseUDP")]
+	HRESULT UseUDP([out, retval] VARIANT_BOOL* pVal);
+	
+	[propput, id(6), helpstring("Propety UseUDP")]
+	HRESULT UseUDP([in] VARIANT_BOOL newVal);
 };
 [
 	uuid(4C61D35A-81FC-4197-A575-BB2BAE8F7532),

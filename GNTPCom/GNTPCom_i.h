@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0500 */
-/* at Mon Apr 19 19:27:28 2010
+/* at Fri Apr 30 00:42:16 2010
  */
 /* Compiler settings for .\GNTPCom.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -111,6 +111,12 @@ EXTERN_C const IID IID_IGrowler;
             /* [in] */ BSTR ApplicationName,
             /* [in] */ VARIANT Notifications) = 0;
         
+        virtual /* [helpstring][id][propget] */ HRESULT STDMETHODCALLTYPE get_UseUDP( 
+            /* [retval][out] */ VARIANT_BOOL *pVal) = 0;
+        
+        virtual /* [helpstring][id][propput] */ HRESULT STDMETHODCALLTYPE put_UseUDP( 
+            /* [in] */ VARIANT_BOOL newVal) = 0;
+        
     };
     
 #else 	/* C style interface */
@@ -189,6 +195,14 @@ EXTERN_C const IID IID_IGrowler;
             /* [in] */ BSTR ApplicationName,
             /* [in] */ VARIANT Notifications);
         
+        /* [helpstring][id][propget] */ HRESULT ( STDMETHODCALLTYPE *get_UseUDP )( 
+            IGrowler * This,
+            /* [retval][out] */ VARIANT_BOOL *pVal);
+        
+        /* [helpstring][id][propput] */ HRESULT ( STDMETHODCALLTYPE *put_UseUDP )( 
+            IGrowler * This,
+            /* [in] */ VARIANT_BOOL newVal);
+        
         END_INTERFACE
     } IGrowlerVtbl;
 
@@ -239,6 +253,12 @@ EXTERN_C const IID IID_IGrowler;
 
 #define IGrowler_InitWithAddress(This,ServerAddress,Password,ApplicationName,Notifications)	\
     ( (This)->lpVtbl -> InitWithAddress(This,ServerAddress,Password,ApplicationName,Notifications) ) 
+
+#define IGrowler_get_UseUDP(This,pVal)	\
+    ( (This)->lpVtbl -> get_UseUDP(This,pVal) ) 
+
+#define IGrowler_put_UseUDP(This,newVal)	\
+    ( (This)->lpVtbl -> put_UseUDP(This,newVal) ) 
 
 #endif /* COBJMACROS */
 

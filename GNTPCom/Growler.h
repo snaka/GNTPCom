@@ -57,6 +57,13 @@ public:
 		/*[optional]*/ VARIANT Password
 	);
 
+	STDMETHOD(InitWithAddress)(
+		BSTR ServerAddress, 
+		BSTR Password, 
+		BSTR ApplicationName, 
+		VARIANT Notifications
+	);
+
 	STDMETHOD(Notify)(
 		BSTR NotificationType, 
 		BSTR Title, 
@@ -66,6 +73,9 @@ public:
 	);
 
 	STDMETHOD(get_ApplicationName)(BSTR* pVal);
+	STDMETHOD(get_Notifications)(VARIANT* pVal);
+	STDMETHOD(get_UseUDP)(VARIANT_BOOL* pVal);
+	STDMETHOD(put_UseUDP)(VARIANT_BOOL newVal);
 
 private:
 	Growl* growler;
@@ -74,10 +84,14 @@ private:
 	std::vector<CComBSTR> m_notifications;
 	CComBSTR m_applicationName;
 	char* m_iconUrl;
+	VARIANT_BOOL m_isUseUDP;
 
-public:
-	STDMETHOD(get_Notifications)(VARIANT* pVal);
-	STDMETHOD(InitWithAddress)(BSTR ServerAddress, BSTR Password, BSTR ApplicationName, VARIANT Notifications);
+	Growl_Protocol getProtocol() {
+		if (m_isUseUDP == VARIANT_TRUE)
+			return GROWL_UDP;
+		else
+			return GROWL_TCP;
+	}
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(Growler), CGrowler)

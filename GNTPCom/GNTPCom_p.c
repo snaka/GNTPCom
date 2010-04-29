@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0500 */
-/* at Mon Apr 19 19:27:28 2010
+/* at Fri Apr 30 00:42:16 2010
  */
 /* Compiler settings for .\GNTPCom.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -49,8 +49,8 @@
 
 #include "GNTPCom_i.h"
 
-#define TYPE_FORMAT_STRING_SIZE   1081                              
-#define PROC_FORMAT_STRING_SIZE   235                               
+#define TYPE_FORMAT_STRING_SIZE   1085                              
+#define PROC_FORMAT_STRING_SIZE   307                               
 #define EXPR_FORMAT_STRING_SIZE   1                                 
 #define TRANSMIT_AS_TABLE_SIZE    0            
 #define WIRE_MARSHAL_TABLE_SIZE   2            
@@ -311,6 +311,68 @@ static const GNTPCom_MIDL_PROC_FORMAT_STRING GNTPCom__MIDL_ProcFormatString =
 /* 228 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
 /* 230 */	NdrFcShort( 0x20 ),	/* x86 Stack size/offset = 32 */
 /* 232 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure get_UseUDP */
+
+/* 234 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 236 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 240 */	NdrFcShort( 0xc ),	/* 12 */
+/* 242 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 244 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 246 */	NdrFcShort( 0x22 ),	/* 34 */
+/* 248 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 250 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 252 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 254 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 256 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter pVal */
+
+/* 258 */	NdrFcShort( 0x2150 ),	/* Flags:  out, base type, simple ref, srv alloc size=8 */
+/* 260 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 262 */	0x6,		/* FC_SHORT */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 264 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 266 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 268 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure put_UseUDP */
+
+/* 270 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 272 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 276 */	NdrFcShort( 0xd ),	/* 13 */
+/* 278 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 280 */	NdrFcShort( 0x6 ),	/* 6 */
+/* 282 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 284 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 286 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 288 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 290 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 292 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter newVal */
+
+/* 294 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 296 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 298 */	0x6,		/* FC_SHORT */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 300 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 302 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 304 */	0x8,		/* FC_LONG */
 			0x0,		/* 0 */
 
 			0x0
@@ -1048,6 +1110,10 @@ static const GNTPCom_MIDL_TYPE_FORMAT_STRING GNTPCom__MIDL_TypeFormatString =
 /* 1074 */	NdrFcShort( 0x10 ),	/* 16 */
 /* 1076 */	NdrFcShort( 0x0 ),	/* 0 */
 /* 1078 */	NdrFcShort( 0xfff4 ),	/* Offset= -12 (1066) */
+/* 1080 */	
+			0x11, 0xc,	/* FC_RP [alloced_on_stack] [simple_pointer] */
+/* 1082 */	0x6,		/* FC_SHORT */
+			0x5c,		/* FC_PAD */
 
 			0x0
         }
@@ -1095,7 +1161,9 @@ static const unsigned short IGrowler_FormatStringOffsetTable[] =
     48,
     108,
     144,
-    180
+    180,
+    234,
+    270
     };
 
 static const MIDL_STUBLESS_PROXY_INFO IGrowler_ProxyInfo =
@@ -1119,7 +1187,7 @@ static const MIDL_SERVER_INFO IGrowler_ServerInfo =
     0,
     0,
     0};
-CINTERFACE_PROXY_VTABLE(12) _IGrowlerProxyVtbl = 
+CINTERFACE_PROXY_VTABLE(14) _IGrowlerProxyVtbl = 
 {
     &IGrowler_ProxyInfo,
     &IID_IGrowler,
@@ -1134,7 +1202,9 @@ CINTERFACE_PROXY_VTABLE(12) _IGrowlerProxyVtbl =
     (void *) (INT_PTR) -1 /* IGrowler::Notify */ ,
     (void *) (INT_PTR) -1 /* IGrowler::get_ApplicationName */ ,
     (void *) (INT_PTR) -1 /* IGrowler::get_Notifications */ ,
-    (void *) (INT_PTR) -1 /* IGrowler::InitWithAddress */
+    (void *) (INT_PTR) -1 /* IGrowler::InitWithAddress */ ,
+    (void *) (INT_PTR) -1 /* IGrowler::get_UseUDP */ ,
+    (void *) (INT_PTR) -1 /* IGrowler::put_UseUDP */
 };
 
 
@@ -1148,6 +1218,8 @@ static const PRPC_STUB_FUNCTION IGrowler_table[] =
     NdrStubCall2,
     NdrStubCall2,
     NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
     NdrStubCall2
 };
 
@@ -1155,7 +1227,7 @@ CInterfaceStubVtbl _IGrowlerStubVtbl =
 {
     &IID_IGrowler,
     &IGrowler_ServerInfo,
-    12,
+    14,
     &IGrowler_table[-3],
     CStdStubBuffer_DELEGATING_METHODS
 };

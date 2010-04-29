@@ -10,8 +10,11 @@ static const char** vec2arr(std::vector<CComBSTR> &vec);
 
 // CGrowler
 
-STDMETHODIMP CGrowler::Init(BSTR ApplicationName, VARIANT Notifications, VARIANT Password)
-{
+STDMETHODIMP CGrowler::Init(
+	BSTR ApplicationName, 
+	VARIANT Notifications, 
+	VARIANT Password
+) {
 	BSTR passwd;
 
 	if (Password.vt == VT_BSTR)
@@ -24,8 +27,12 @@ STDMETHODIMP CGrowler::Init(BSTR ApplicationName, VARIANT Notifications, VARIANT
 	return S_OK;
 }
 
-STDMETHODIMP CGrowler::InitWithAddress(BSTR ServerAddress, BSTR Password, BSTR ApplicationName, VARIANT Notifications)
-{
+STDMETHODIMP CGrowler::InitWithAddress(
+	BSTR ServerAddress, 
+	BSTR Password, 
+	BSTR ApplicationName, 
+	VARIANT Notifications
+) {
 	// Application name
 	m_applicationName.Empty();
 	m_applicationName.Append(ApplicationName);
@@ -63,9 +70,10 @@ STDMETHODIMP CGrowler::InitWithAddress(BSTR ServerAddress, BSTR Password, BSTR A
 	char* psPasswd = _com_util::ConvertBSTRToString(Password);
 	char* appName = bstr2utf8(m_applicationName.m_str);
 
+	printf("hoge\n");
 	if (ServerAddress == NULL)
 		growler = new Growl(
-			GROWL_TCP,
+			getProtocol(),
 			psPasswd,
 			appName,
 			types,
@@ -73,7 +81,7 @@ STDMETHODIMP CGrowler::InitWithAddress(BSTR ServerAddress, BSTR Password, BSTR A
 		);
 	else
 		growler = new Growl(
-			GROWL_TCP,
+			getProtocol(),
 			_com_util::ConvertBSTRToString(ServerAddress),
 			_com_util::ConvertBSTRToString(Password), 
 			appName, 
@@ -157,6 +165,22 @@ STDMETHODIMP CGrowler::get_Notifications(VARIANT* pVal)
 	return S_OK;
 }
 
+
+
+STDMETHODIMP CGrowler::get_UseUDP(VARIANT_BOOL* pVal)
+{
+	*pVal = m_isUseUDP; 
+	return S_OK;
+}
+
+STDMETHODIMP CGrowler::put_UseUDP(VARIANT_BOOL newVal)
+{
+	m_isUseUDP = newVal;
+	return S_OK;
+}
+
+
+
 // Utilities
 
 static char* string_to_utf8_alloc(const char* str) 
@@ -198,4 +222,5 @@ static const char** vec2arr(std::vector<CComBSTR> &vec)
 		arr[i] = bstr2utf8((vec[i]).m_str);
 	return arr;
 }
+
 
