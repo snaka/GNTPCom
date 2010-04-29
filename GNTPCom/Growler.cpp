@@ -70,7 +70,6 @@ STDMETHODIMP CGrowler::InitWithAddress(
 	char* psPasswd = _com_util::ConvertBSTRToString(Password);
 	char* appName = bstr2utf8(m_applicationName.m_str);
 
-	printf("hoge\n");
 	if (ServerAddress == NULL)
 		growler = new Growl(
 			getProtocol(),

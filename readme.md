@@ -59,6 +59,8 @@ g.InitWithAddress "192.168.0.xxx", "", "Sample", Array("notify", "warn", "error"
 g.Notify "notify", "Greeting", "Hello, from VBScript!"
 set g = Nothing</pre>
 
+[Growl on Mac](http://gyazo.com/edd232c3404fdae2a98bf4cee00525ff.png)
+
 ## License ##
 
 The MIT License
