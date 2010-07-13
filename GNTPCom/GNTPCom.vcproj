@@ -144,7 +144,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="&quot;C:\cygwin\home\Owner\work\lang\c++\GNTPCom\GNTPCom\md5lib&quot;;&quot;C:\cygwin\home\Owner\work\lang\c++\GNTPCom\GNTPCom\gntp-send\headers&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)\md5lib&quot;;&quot;$(ProjectDir)\gntp-send\headers&quot;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
